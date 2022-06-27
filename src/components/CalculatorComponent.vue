@@ -81,7 +81,6 @@ export default {
 			this.currentLine = '';
 			this.result = '';
 			this.calculate();
-			this.end = false;
 		},
 
 		negative () {
@@ -97,6 +96,7 @@ export default {
 			this.currentLine = this.result.slice(2);
 			this.currentLineClass = 'main-text';
 			this.resultClass = 'other-text';
+			this.end = false;
 		},
 
 		erase () {
