@@ -24,7 +24,7 @@
 		<div class="buttons">
 			<button class="w-16 h-16 rounded-full operation noselect" @click="clear">AC</button>
 			<button class="w-16 h-16 rounded-full operation noselect" @click="erase"><img class="backspace" src="../assets/backspace.svg"></button>
-			<button class="w-16 h-16 rounded-full operation noselect" @click="pressed('%')"><img class="percent" src="../assets/percent.svg"></button>
+			<button class="w-16 h-16 rounded-full operation noselect" @click="percent"><img class="percent" src="../assets/percent.svg"></button>
 			<button class="w-16 h-16 rounded-full operation noselect" @click="press('/')"><img class="divide" src="../assets/divide.svg"></button>
 
 			<button class="w-16 h-16 rounded-full noselect"			  @click="press('7')">7</button>
@@ -83,7 +83,14 @@ export default {
 			this.calculate();
 		},
 
+		percent () {
+			this.resume();
+			this.currentLine = '(' + this.currentLine + ')' + '/100';
+			this.calculate();
+		},
+
 		negative () {
+			this.resume();
 			if (this.currentLine[0] == '-') {
 				if (this.currentLine[1] == '(') this.currentLine = this.currentLine.slice(2, this.currentLine.length - 1);
 				else this.currentLine.slice(1, this.currentLine.length);
@@ -93,10 +100,12 @@ export default {
 		},
 
 		resume () {
-			this.currentLine = this.result.slice(2);
-			this.currentLineClass = 'main-text';
-			this.resultClass = 'other-text';
-			this.end = false;
+			if (this.end) {
+				this.currentLine = this.result.slice(2);
+				this.currentLineClass = 'main-text';
+				this.resultClass = 'other-text';
+				this.end = false;
+			}
 		},
 
 		erase () {
